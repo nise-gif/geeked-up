@@ -1,0 +1,76 @@
+/*
+        Line 1 - Layout Program
+        Line 2 - 0.1
+        Line 3 - Tioluwanise Fadugba
+        Line 4 - Mr Di Tomasso
+        Line 5 - Effective, Organized and Efficient layout
+*/
+
+
+import javax.swing.*;
+import java.awt.*;
+
+
+public class TeslaCarPurchaseProgram {
+
+    public static void main(String[] args) {
+
+        // Create the main frame
+        JFrame frame = new JFrame("Tesla Car Purchase");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 300);
+
+        // Set a BorderLayout for the main frame
+        frame.setLayout(new BorderLayout());
+
+        // Create a panel for user input using GridLayout
+        JPanel inputPanel = new JPanel(new GridLayout(4, 2, 10, 10));
+
+        // JLabel and JTextField for name
+        JLabel nameLabel = new JLabel("Name:");
+        JTextField nameField = new JTextField();
+        inputPanel.add(nameLabel);
+        inputPanel.add(nameField);
+
+        // JLabel and JTextField for car model
+        JLabel modelLabel = new JLabel("Car Model:");
+        JTextField modelField = new JTextField();
+        inputPanel.add(modelLabel);
+        inputPanel.add(modelField);
+
+        // JLabel and JRadioButton for payment options
+        JLabel paymentLabel = new JLabel("Payment Method:");
+        JPanel paymentPanel = new JPanel(new FlowLayout());
+        JRadioButton creditCardButton = new JRadioButton("Credit Card");
+        JRadioButton paypalButton = new JRadioButton("PayPal");
+        ButtonGroup paymentGroup = new ButtonGroup();
+        paymentGroup.add(creditCardButton);
+        paymentGroup.add(paypalButton);
+        paymentPanel.add(creditCardButton);
+        paymentPanel.add(paypalButton);
+        inputPanel.add(paymentLabel);
+        inputPanel.add(paymentPanel);
+
+        // JLabel and JCheckBox for extra features
+        JLabel extrasLabel = new JLabel("Extras:");
+        JPanel extrasPanel = new JPanel(new FlowLayout());
+        JCheckBox autopilotCheckBox = new JCheckBox("Autopilot");
+        JCheckBox premiumSoundCheckBox = new JCheckBox("Premium Sound");
+        extrasPanel.add(autopilotCheckBox);
+        extrasPanel.add(premiumSoundCheckBox);
+        inputPanel.add(extrasLabel);
+        inputPanel.add(extrasPanel);
+
+        // Add the input panel to the center of the frame
+        frame.add(inputPanel, BorderLayout.CENTER);
+
+        // Add a submit button to the bottom of the frame
+        JButton submitButton = new JButton("Submit");
+        frame.add(submitButton, BorderLayout.SOUTH);
+
+        // Make the frame visible
+        frame.setVisible(true);
+
+    }
+
+}
