@@ -1,0 +1,108 @@
+/*
+        Line 1 - Car Customization
+        Line 2 - 0.1
+        Line 3 - Tioluwanise Fadugba
+        Line 4 - Mr Di Tomasso
+        Line 5 - Customize cars
+*/
+
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
+
+public class CarCustomizationCalculator {
+    public static void main(String[] args) {
+        // Launch the GUI
+        SwingUtilities.invokeLater(() -> new CarCustomizationGUI());
+    }
+}
+
+class CarCustomizationGUI extends JFrame {
+    private JComboBox<String> modelBox;
+    private JCheckBox[] optionsCheckBoxes;
+    private JTextField totalCostField;
+    private final String[] models = {"Long Range - $114,990", "Plaid - $135,990"};
+    private final String[] options = {"Exterior Paint - $2,500", "Wheels - $4,000",
+            "Interior - $2,000", "Autopilot - $13,000"};
+    private final double[] optionPrices = {2500, 4000, 2000, 6000};
+
+
+
+    public CarCustomizationGUI() {
+        setTitle("Car Customization Calculator");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(400, 300);
+        setLayout(new GridLayout(6, 1));
+
+        // Model Selection
+        add(new JLabel("Select Model:"));
+        modelBox = new JComboBox<>(models);
+        add(modelBox);
+
+        // Options Selection
+        add(new JLabel("Select Enhancements:"));
+        JPanel optionsPanel = new JPanel(new GridLayout(options.length, 1));
+        optionsCheckBoxes = new JCheckBox[options.length];
+
+        for (int i = 0; i < options.length; i++) {
+            optionsCheckBoxes[i] = new JCheckBox(options[i]);
+            optionsPanel.add(optionsCheckBoxes[i]);
+        }
+        add(optionsPanel);
+
+        // Calculate Button
+        JButton calculateButton = new JButton("Calculate Total");
+        calculateButton.addActionListener(new CalculateListener());
+        add(calculateButton);
+
+
+
+        // Total Cost Field
+        add(new JLabel("Total Cost:"));
+        totalCostField = new JTextField();
+        totalCostField.setEditable(false);
+        add(totalCostField);
+        setVisible(true);
+    }
+
+
+
+    private class CalculateListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Get base price
+            double basePrice = modelBox.getSelectedIndex() == 0 ? 114990 : 135990;
+
+            // Calculate options total
+            double optionsTotal = 0;
+            for (int i = 0; i < optionsCheckBoxes.length; i++) {
+                if (optionsCheckBoxes[i].isSelected()) {
+
+                    optionsTotal += optionPrices[i];
+                }
+            }
+
+
+
+            // Freight (2.5% of base price)
+
+            double freight = basePrice * 0.025;
+
+            // Tax (13%)
+            double subtotal = basePrice + optionsTotal + freight;
+            double tax = subtotal * 0.13;
+
+            // Plate/Sticker Cost
+            double plateCost = 120; // Example: 1-year plate fee
+            double totalCost = subtotal + tax + plateCost;
+
+            // Display total cost
+            totalCostField.setText(String.format("$%.2f", totalCost));
+        }
+    }
+}
